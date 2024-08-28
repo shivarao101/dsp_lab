@@ -18,7 +18,9 @@ if fp and fs and F and kp and ks:
     kp=float(kp)
     ks=float(ks)
     N, Wn = signal.buttord([wp], [ws], kp, ks)
+    st.write(N,Wn)
     b, a = signal.butter(N, Wn, 'low', False)
+    st.write(b,a)
     w, h = signal.freqz(b, a,F)
     w1=[i for i in np.arange(0,F/2,0.5)]
     fig=plt.figure()

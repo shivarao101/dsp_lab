@@ -1,4 +1,6 @@
+from pathlib import Path
 import streamlit as st
+from PIL import Image
 hide_menu='''
 <style>
 #Mainmenu
@@ -12,6 +14,22 @@ display:block;
 </style>
 '''
 st.set_page_config(page_title='DSP Lab',page_icon='📻')
+current_dir= Path(__file__).parent if "__file__" in locals() else Path.cwd()
+css_file = current_dir / "styles" / "main.css"
+college_pic = current_dir / "assets" / "college.png"
+NAME = "Vivekananda College of Engineering and Technology, Puttur"
+DESCRIPTION = "Department of Electronics and Communication Engineering"
+with open(css_file) as f:
+    st.markdown("<style>{}</style>".format(f.read()), unsafe_allow_html=True)
+college_pic=Image.open(college_pic)
+col1, col2 = st.columns((0.3,0.7),gap="large")
+with col1:
+    st.image(college_pic, width=150)
+with col2:
+    st.markdown(f"### {NAME}")
+    st.write(f"##### {DESCRIPTION}")
+st.markdown(hide_menu,unsafe_allow_html=True)
+
 st.markdown('## DSP lab experiments')
 st.sidebar.success('Select pages above')
 st.write('1. Computation of N point DFT of a given sequence and to plot magnitude and phase spectrum.')
